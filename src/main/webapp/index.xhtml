@@ -6,7 +6,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form id="vacanteForm">
             <h:messages globalOnly="true"></h:messages>
             <table>
                 <tr>
@@ -34,7 +34,49 @@
                         </h:inputText> 
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <h:outputLabel for="codigoPostal" value="Codigo postal"></h:outputLabel>
+                    </td>
+                    <td><h:inputText id="codigoPostal" immediate="true" onchange="this.form.submit()" required="true" value="#{candidato.codigoPostal}"
+                                     valueChangeListener="#{vacanteForm.codigoPostalListener}"></h:inputText></td>
+                    <td><h:message for="codigoPostal"></h:message></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputLabel for="colonia" value="Colonia"></h:outputLabel>
+                    </td>
+                    <td><h:inputText id="colonia" required="true" value="#{candidato.colonia}"></h:inputText></td>
+                    <td><h:message for="colonia"></h:message></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputLabel for="ciudad" value="Ciudad"></h:outputLabel>
+                    </td>
+                    <td><h:inputText id="ciudad" required="true" value="#{candidato.ciudad}"></h:inputText></td>
+                    <td><h:message for="ciudad"></h:message></td>
+                </tr>
             </table>
+            <table>
+                <tr>
+                    <td>
+                        <h:commandLink actionListener="#{vacanteForm.ocultarComentario}" immediate="true" 
+                                       rendered="#{!vacanteForm.comentarioEnviado}" value="Mostrar"></h:commandLink>
+                        <h:commandLink actionListener="#{vacanteForm.ocultarComentario}" immediate="true" 
+                                       rendered="#{vacanteForm.comentarioEnviado}" value="ocultar"></h:commandLink>
+                    </td>
+                </tr>
+            </table>
+            <h:panelGroup rendered="#{vacanteForm.comentarioEnviado}">
+                <table>
+                    <tr>
+                        <td><h:outputLabel for="comentario" value="#{vacante.comentario}"></h:outputLabel></td>
+                    </tr>
+                    <tr>
+                        <td><h:inputTextarea id="comentario" cols="50" rows="10" value="#{candidato.comentario}"></h:inputTextarea></td>
+                    </tr>
+                </table>
+            </h:panelGroup>
             <h:commandButton action="#{vacanteForm.enviar}" value="Enviar"></h:commandButton>
         </h:form>
     </h:body>
